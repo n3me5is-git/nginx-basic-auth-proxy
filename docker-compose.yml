@@ -1,13 +1,15 @@
 version: '2'
 services:
-  web:
-    image: tutum/hello-world:latest
-  nginx:
-    image: quay.io/dtan4/nginx-basic-auth-proxy:latest
+  web-service:
+    image: ....
+    ...........
+    expose: port
+    
+  web-nginx-basic-auth:
+    image: nginx-basic-auth-proxy
     ports:
-      - 8080:80
-      - 8090:8090
+      - 0.0.0.0:8080:80
     environment:
       - BASIC_AUTH_USERNAME=username
       - BASIC_AUTH_PASSWORD=password
-      - PROXY_PASS=http://web/
+      - PROXY_PASS=http://web-service:port/
