@@ -1,7 +1,5 @@
 # Docker image of Nginx Proxy with Basic Auth
 
-[![Docker Repository on Quay](https://quay.io/repository/dtan4/nginx-basic-auth-proxy/status "Docker Repository on Quay")](https://quay.io/repository/dtan4/nginx-basic-auth-proxy)
-
 Simple HTTP Proxy with Basic Authentication
 
 ```
@@ -10,26 +8,32 @@ User ---------------> | nginx-basic-auth-proxy | ---> | HTTP Server |
                       +------------------------+      +-------------+
 ```
 
+## Build
+
+```bash
+docker build -t nginx-basic-auth-proxy .
+```
+
+
 ## Run
 
 ```bash
 $ docker run \
     --rm \
-    --name nginx-basic-auth-proxy \
+    --name app-nginx-basic-auth-proxy \
     -p 8080:80 \
     -p 8090:8090 \
     -e BASIC_AUTH_USERNAME=username \
     -e BASIC_AUTH_PASSWORD=password \
-    -e PROXY_PASS=https://www.google.com \
-    -e SERVER_NAME=proxy.dtan4.net \
+    -e PROXY_PASS=https://127.0.0.1:1234 \
+    -e SERVER_NAME=mydomain.com \
     -e PORT=80 \
-    quay.io/dtan4/nginx-basic-auth-proxy
+    nginx-basic-auth-proxy
 ```
 
 Access to http://localhost:8080 , then browser asks you username and password.
 
-You can also try complete HTTP-proxy example using Docker Compose.
-hello-world web application cannot be accessed without authentication.
+**You can also use complete HTTP-proxy example using Docker Compose. See the `docker-compose.yml` file**
 
 ```bash
 $ docker-compose up
